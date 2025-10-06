@@ -32,5 +32,35 @@
                 const urlApi = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${kecamatan}&aqi=no`;
 
                 weatherInfoDiv.html('<p>Memuat data...</p>');
+
+                 $.ajax({
+                    url: urlApi,
+                    method: "GET",
+                    success: function (data){
+
+                        const negara = data.location.country;
+                        const provinsi = data.location.region;
+                        const kecamatan = data.location.name;   
+                        const suhu = data.current.temp_c;
+                        const longitude = data.location.lon;
+                        const latitude = data.location.lat;
+
+
+                        const hasilHtml = `
+                            <p><span>Negara</span>: ${negara}</p>
+                            <p><span>Provinsi</span>: ${provinsi}</p>
+                            <p><span>Kecamatan</span>: ${kecamatan}</p>
+                            <p><span>Suhu</span>: ${suhu} °C</p>
+                            <p><span>Longitude</span>: ${longitude}</p>
+                            <p><span>Latitude</span>: ${latitude}</p>
+                        `;
+                    
+                        weatherInfoDiv.html(hasilHtml);
+                },
+                error: function() {
+                    weatherInfoDiv.html('<p style="color: red;">Lokasi tidak ditemukan atau terjadi kesalahan.</p>');
+                }
+            });
+        }
     </body>
 </html>
