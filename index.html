@@ -18,5 +18,19 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+        <script>
+            function getWeather() {
+                const kecamatan = $('#kecamatanInput').val();
+                const weatherInfoDiv = $('#weather-info');
+
+                if (!kecamatan) {
+                    weatherInfoDiv.html('<p style="color: red;">Nama kecamatan tidak boleh kosong!</p>');
+                    return;
+                }
+
+                const apiKey = '3ab4a3f77611479ea3e40423250610';
+                const urlApi = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${kecamatan}&aqi=no`;
+
+                weatherInfoDiv.html('<p>Memuat data...</p>');
     </body>
 </html>
